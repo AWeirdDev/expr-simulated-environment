@@ -1,0 +1,10 @@
+[package]
+name = "simulation"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.95"
+boa_engine = "0.20.0"
+html5ever = "0.29.0"
+scraper = "0.22.0"

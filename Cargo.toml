@@ -1,0 +1,17 @@
+[package]
+name = "air_browser"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+name = "air_browser"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.22.0", features = ["anyhow"] }
+anyhow = "1.0.89"
+ctrlc = "3.4.5"
+
+[workspace]
+members = ["simulation"]
