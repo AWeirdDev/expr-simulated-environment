@@ -21,6 +21,7 @@ dependencies = [
  "anyhow",
  "ctrlc",
  "pyo3",
+ "simulation",
 ]
 
 [[package]]

@@ -12,6 +12,7 @@ crate-type = ["cdylib"]
 pyo3 = { version = "0.22.0", features = ["anyhow"] }
 anyhow = "1.0.89"
 ctrlc = "3.4.5"
+simulation = { path = "./simulation" }
 
 [workspace]
 members = ["simulation"]
