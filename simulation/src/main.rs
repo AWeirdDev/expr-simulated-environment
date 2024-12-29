@@ -6,6 +6,12 @@ use boa_engine::{
 };
 use scraper::{Html, Selector};
 
+macro_rules! empty_fn {
+    () => {
+        NativeFunction::from_fn_ptr(|_, _, _| Ok(JsValue::undefined()))
+    };
+}
+
 struct DocState {
     data: Arc<RwLock<Html>>,
 }
@@ -37,17 +43,27 @@ impl DocState {
 }
 
 fn add_console(context: &mut Context) {
-    fn log(_this: &JsValue, args: &[JsValue], _context: &mut Context) -> Result<JsValue, JsError> {
-        println!("log: {args:?}");
-        Ok(JsValue::undefined())
-    }
-
     let object = object::ObjectInitializer::new(context)
-        .function(
-            NativeFunction::from_fn_ptr(|a, b, c| log(a, b, c)),
-            js_string!("log"),
-            0,
-        )
+        .function(empty_fn!(), js_string!("log"), 0)
+        .function(empty_fn!(), js_string!("error"), 0)
+        .function(empty_fn!(), js_string!("table"), 0)
+        .function(empty_fn!(), js_string!("info"), 0)
+        .function(empty_fn!(), js_string!("warn"), 0)
+        .function(empty_fn!(), js_string!("debug"), 0)
+        .function(empty_fn!(), js_string!("trace"), 0)
+        .function(empty_fn!(), js_string!("dir"), 0)
+        .function(empty_fn!(), js_string!("dirxml"), 0)
+        .function(empty_fn!(), js_string!("group"), 0)
+        .function(empty_fn!(), js_string!("groupCollapsed"), 0)
+        .function(empty_fn!(), js_string!("groupEnd"), 0)
+        .function(empty_fn!(), js_string!("time"), 0)
+        .function(empty_fn!(), js_string!("timeEnd"), 0)
+        .function(empty_fn!(), js_string!("count"), 0)
+        .function(empty_fn!(), js_string!("assert"), 0)
+        .function(empty_fn!(), js_string!("profile"), 0)
+        .function(empty_fn!(), js_string!("profileEnd"), 0)
+        .function(empty_fn!(), js_string!("profileEnd"), 0)
+        .function(empty_fn!(), js_string!("clear"), 0)
         .build();
 
     context
@@ -125,8 +141,8 @@ fn main() {
     let state = DocState::new(document);
 
     let mut context = make_context(state).unwrap();
-    match context.eval(Source::from_bytes("document.querySelector('h1')")) {
-        Ok(res) => println!("{res:?}"),
+    match context.eval(Source::from_bytes("console.log()")) {
+        Ok(res) => println!("{res:#?}"),
         Err(e) => println!("Error: {}", e),
     };
 }
